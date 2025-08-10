@@ -106,11 +106,6 @@ int encontrarMCD(int a, int b) {
 }
 
 
-//***********************************************Ejercicio 7
-
-
-
-
 int main() {
    
 }
