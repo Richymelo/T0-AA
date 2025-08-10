@@ -28,23 +28,18 @@ int encontrarMasGrande(int lista[], int n) {
 }
 
 //***********************************************Ejercicio 2
-int encontrarMasPequeno(int lista[]) {
-    int n = sizeof(lista);
-    int* listaAux = (int*)malloc(n * sizeof(int));
-    if (listaAux == NULL) {
+int encontrarMasPequeno(int lista[], int n) {
+    //int n = sizeof(lista);
+    if (lista == NULL) {
         printf("Error al reservar memoria\n");
         return -1;
     }
+    int minimo = lista[0];
     for (int i = 1; i < n; i++) {
-        listaAux[i] = lista[i];
-    }
-    int minimo = listaAux[0];
-    for (int i = 1; i < n; i++) {
-        if (listaAux[i] < minimo) {
-            minimo = listaAux[i];
+        if (lista[i] < minimo) {
+            minimo = lista[i];
         }
     }
-    free(listaAux);
     return minimo;
 }
 
@@ -76,13 +71,6 @@ void imprimirSubconjuntosTres(int lista[], int n) {
 }
 
 
-
-//***********************************************Ejercicio 4
-int* pequenoGrande(int* lista) {
-    return 0;
-}
-
-
 //***********************************************Ejercicio 5
 int valorAbsoluto(int x) {
     return (x < 0) ? -x : x;
@@ -105,6 +93,43 @@ int encontrarMCD(int a, int b) {
     return a;
 }
 
+//***********************************************Ejercicio 6
+void pequenoGrande(int lista[], int n, int *minimo, int *maximo) {
+    int i;
+
+    // Inicialización
+    if (n % 2 == 0) { 
+        // Si el número de elementos es par
+        if (lista[0] < lista[1]) {
+            *minimo = lista[0];
+            *maximo = lista[1];
+        } else {
+            *minimo = lista[1];
+            *maximo = lista[0];
+        }
+        i = 2; // Empezamos desde el tercer elemento
+    } else {
+        // Si es impar
+        *minimo = *maximo = lista[0];
+        i = 1; // Empezamos desde el segundo elemento
+    }
+
+    // Comparar en pares
+    for (; i < n - 1; i += 2) {
+        int localMin, localMax;
+        if (lista[i] < lista[i+1]) {
+            localMin = lista[i];
+            localMax = lista[i+1];
+        } else {
+            localMin = lista[i+1];
+            localMax = lista[i];
+        }
+
+        if (localMin < *minimo) *minimo = localMin;
+        if (localMax > *maximo) *maximo = localMax;
+    }
+    printf("Minimo: %d, Maximo:%d\n", minimo, maximo);
+}
 
 int main() {
    
