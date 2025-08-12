@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Algoritmos.h"
+#include <time.h>
 
 void pedirLista(int **lista, int *n) {
     printf("Digite el tamaño de la lista: ");
@@ -10,10 +11,14 @@ void pedirLista(int **lista, int *n) {
         printf("Error al asignar memoria.\n");
         exit(1);
     }
-    for (int i = 0; i < *n; i++) {
-        printf("Digite el numero que desea ingresar a la lista: ");
-        scanf("%d", &((*lista)[i]));
+    //Inicializar semilla aleatoria con el tiempo actual
+    srand(time(NULL));
+    
+    //Generar nums aleatorios
+    for (int i = 0; i < *n; i++){
+        (*lista)[i] = rand() % 100; //numeros enteros
     }
+    
 }
 
 int main() {
@@ -24,10 +29,15 @@ int main() {
     int menu = 1;
 
     pedirLista(&lista, &n);
+    
 
     while (menu) {
-        system("clear");
-        printf(" ********* Menu de ejercicios *********\n\n");
+        printf("Lista generada:");
+        for (int i =0; i < n; i++){
+            printf("%d ", lista[i]);
+        }
+        
+        printf(" \n********* Menu de ejercicios *********\n\n");
         printf("  1. Ejercicio 1\n");
         printf("  2. Ejercicio 2\n");
         printf("  3. Ejercicio 3\n");
@@ -84,7 +94,7 @@ int main() {
         case 6:
             free(lista);
             lista = NULL;
-            pedirLista(&lista, &n);
+            main();
             break;
         case 7:
             menu = 0;
