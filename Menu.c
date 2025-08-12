@@ -1,108 +1,104 @@
-#include <iostream>
-#include <cstdlib>
-#include <string>
-#include "algoritmos.c"
+#include <stdio.h>
+#include <stdlib.h>
+#include "Algoritmos.h"
 
-using namespace std;
+void pedirLista(int **lista, int *n) {
+    printf("Digite el tamaño de la lista: ");
+    scanf("%d", n);
+    *lista = (int*)malloc((*n) * sizeof(int));
+    if (!*lista) {
+        printf("Error al asignar memoria.\n");
+        exit(1);
+    }
+    for (int i = 0; i < *n; i++) {
+        printf("Digite el numero que desea ingresar a la lista: ");
+        scanf("%d", &((*lista)[i]));
+    }
+}
 
 int main() {
     int opc;
-    int *lista = nullptr;
-    int n;
+    int *lista = NULL;
+    int n = 0;
     int a, b;
-    bool menu = true;
+    int menu = 1;
+
+    pedirLista(&lista, &n);
 
     while (menu) {
-        cout << "Digite el tamaño de la lista: ";
-        cin >> n;
-        lista = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            cout << "Digite el numero que desea ingresar a la lista: ";
-            cin >> lista[i];
-        }
-
-        cin.ignore();
-        cout << "Presione ENTER para continuar...";
-        cin.get();
-
         system("clear");
-        cout << " ********* Menu de ejercicios *********" << endl << endl;
-        cout << "  1. Ejercicio 1" << endl;
-        cout << "  2. Ejercicio 2" << endl;
-        cout << "  3. Ejercicio 3" << endl;
-        cout << "  4. Ejercicio 5" << endl;
-        cout << "  5. Ejercicio 6" << endl;
-        cout << "  6. Cambiar lista" << endl;
-        cout << "  7. Salir" << endl;
-        cout << endl << "Digite la opcion: ";
-        cin >> opc;
+        printf(" ********* Menu de ejercicios *********\n\n");
+        printf("  1. Ejercicio 1\n");
+        printf("  2. Ejercicio 2\n");
+        printf("  3. Ejercicio 3\n");
+        printf("  4. Ejercicio 5\n");
+        printf("  5. Ejercicio 6\n");
+        printf("  6. Cambiar lista\n");
+        printf("  7. Salir\n");
+        printf("\nDigite la opcion: ");
+        scanf("%d", &opc);
 
         switch (opc) {
         case 1:
             system("clear");
-            cout << "Ejercicio 1" << endl;
+            printf("Ejercicio 1\n");
             encontrarMasGrande(lista, n);
-            cin.ignore();
-            cout << "Presione ENTER para continuar...";
-            cin.get();
+            printf("Presione ENTER para continuar...");
+            getchar(); getchar();
             break;
         case 2:
             system("clear");
-            cout << "Ejercicio 2" << endl;
+            printf("Ejercicio 2\n");
             encontrarMasPequeno(lista, n);
-            cin.ignore();
-            cout << "Presione ENTER para continuar...";
-            cin.get();
+            printf("Presione ENTER para continuar...");
+            getchar(); getchar();
             break;
         case 3:
             system("clear");
-            cout << "Ejercicio 3" << endl;
+            printf("Ejercicio 3\n");
             imprimirSubconjuntosTres(lista, n);
-            cin.ignore();
-            cout << "Presione ENTER para continuar...";
-            cin.get();
+            printf("Presione ENTER para continuar...");
+            getchar(); getchar();
             break;
         case 4:
             system("clear");
-            cout << "Ejercicio 5" << endl;
-            cout << "Ingrese un valor para a: ";
-            cin >> a;
-            cout << "Ingrese un valor para b: ";
-            cin >> b;
+            printf("Ejercicio 5\n");
+            printf("Ingrese un valor para a: ");
+            scanf("%d", &a);
+            printf("Ingrese un valor para b: ");
+            scanf("%d", &b);
             encontrarMCD(a, b);
-            cin.ignore();
-            cout << "Presione ENTER para continuar...";
-            cin.get();
+            printf("Presione ENTER para continuar...");
+            getchar(); getchar();
             break;
-        case 5:
+        case 5: {
             system("clear");
-            cout << "Ejercicio 6" << endl;
+            printf("Ejercicio 6\n");
             int minimo, maximo;
             pequenoGrande(lista, n, &minimo, &maximo);
-            cout << "Minimo: " << minimo << ", Maximo: " << maximo << endl;
-            cin.ignore();
-            cout << "Presione ENTER para continuar...";
-            cin.get();
+            printf("Minimo: %d, Maximo: %d\n", minimo, maximo);
+            printf("Presione ENTER para continuar...");
+            getchar(); getchar();
             break;
+        }
         case 6:
-            delete[] lista;
-            lista = nullptr;
-            continue; // vuelve a pedir la lista
+            free(lista);
+            lista = NULL;
+            pedirLista(&lista, &n);
+            break;
         case 7:
-            menu = false;
+            menu = 0;
             system("clear");
-            cout << "Saliendo..." << endl;
+            printf("Saliendo...\n");
             break;
         default:
-            cout << "Opcion invalida" << endl;
-            cin.ignore();
-            cout << "Presione ENTER para continuar...";
-            cin.get();
+            printf("Opcion invalida\n");
+            printf("Presione ENTER para continuar...");
+            getchar(); getchar();
             break;
         }
     }
 
-    delete[] lista;
+    free(lista);
     return 0;
 }
